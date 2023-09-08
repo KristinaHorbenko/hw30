@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog logicalFilePath="db.changelog-1.0.xml"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="kristina" id="createTable">
+        <createTable tableName="homework">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="firstname" type="VARCHAR(255)"/>
+            <column name="lastname" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- insert data into table-->
+    <changeSet author="kristina" id="insert_data">
+        <insert tableName="homework">
+            <column name="firstname" value="Kristina"/>
+            <column name="lastname" value="Horbenko"/>
+        </insert>
+    </changeSet>
+
+    <!-- update table -->
+    <changeSet author="kristina" id="update_data">
+        <update tableName="homework">
+            <column name="firstname" value="Kristina"/>
+            <where>lastname='Horbenko'</where>
+        </update>
+    </changeSet>
+
+        <changeSet author="kristina" id="createLessonTable">
+            <createTable tableName="lesson">
+                <column name="id" type="int" autoIncrement="true">
+                    <constraints primaryKey="true"/>
+                </column>
+                <column name="firstname" type="VARCHAR(255)"/>
+                <column name="updateAT" type="TIMESTAMP"/>
+                <column name="homework_id" type="int">
+                    <constraints unique="true" foreignKeyName="homework_id" references="homework(id)"/>
+                </column>
+            </createTable>
+        </changeSet>
+
+    <changeSet author="kristina" id="insertDataIntoLesson">
+        <insert tableName="lesson">
+            <column name="firstname" value="Mathematics"/>
+            <column name="updateAT" value="2023-09-08 12:00:00"/>
+            <column name="homework_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="kristina" id="updateLessonData">
+        <update tableName="lesson">
+            <column name="firstname" value="Mathematics"/>
+            <column name="updateAT" value="2023-09-08 12:00:00"/>
+            <where>homework_id = 1</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>
+
+
